@@ -64,7 +64,7 @@ function createTeam() {
             type: "list",
             name: "command",
             message:"Would you like to add more team members?",
-            choices:["Add an Engineer", "Add an Intern", "Make team"]
+            choices:["Add an Engineer", "Make a team", "Add an Intern" ]
         }
         ])
         .then(answers => {
@@ -74,14 +74,15 @@ function createTeam() {
                 case "Add an Engineer":
                     getEngineer();
                     break;
+                    
+                    case "Make a team":
+                        buildTeam();
+                        break;
 
                 case "Add an Intern":
                     getIntern();
                     break;
 
-                case "Make team":
-                    buildTeam();
-                    break;
             }
         })
 }
