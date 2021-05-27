@@ -115,7 +115,7 @@ function getEngineer() {
         ])
         .then(answers => {
             var {name, id, email, github} = answers;
-            var engineer = Engineer(name, id, email, github);
+            var engineer = new Engineer (answer.name, answers.id, answers.email, answers.github);
             teamMember.push(engineer);
         })
 
@@ -158,4 +158,4 @@ function buildTeam() {
     fs.writeFileSync(outputPath, mainRender(teamMember), "utf-8");
 }
 
-startApp()
+startApp();
