@@ -47,10 +47,7 @@ test('testing the getRole to see if we return "Employee"', () =>{
     const val = 'Employee';
     const emp = new Employee('Allison', 1234, 'aneary91@gmail.com')
     expect(emp.getRole()).toBe(val);
-})
-
-test
-
+});
 
 
 
