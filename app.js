@@ -11,6 +11,7 @@ const Manager = require("./lib/Manager");
 // create variables for directory
 const OUTPUT_DIR = path.resolve(__dirname, "dist");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
+const render = require('./src/template.js');
 
 var teamArr = [];
 
@@ -151,7 +152,7 @@ const startApp = () => {
     }
     
     function buildTeam() {
-        fs.writeFileSync(outputPath, mainRender(teamArr), "utf-8");
+        fs.writeFileSync(outputPath, render(teamArr), "utf-8");
     }
     promptManager();
 };
