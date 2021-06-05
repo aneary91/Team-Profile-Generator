@@ -1,144 +1,159 @@
+//require these dependencies
 const inquirer = require("inquirer");
 const path = require("path");
+const fs = require("fs");
 
+// require classes and methods
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
-const fs = require("fs");
+
+// create variables for directory
+const OUTPUT_DIR = path.resolve(__dirname, "dist");
+const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 var teamArr = [];
 
 const startApp = () => {
   const promptManager = () => {
-    inquirer.prompt([
-      {
-        type: "input",
-        message: "What is your managers name?",
-        name: "managerName",
-      },
-      {
-        type: "input",
-        message: "What is your managers iD name?",
-        name: "managerId",
-      },
-      {
-        type: "input",
-        message: "What is your managers email?",
-        name: "managerEmail",
-      },
-      {
-        type: "input",
-        message: "What is your managers office number?",
-        name: "officeNumber",
-      }]).then((answers) => {
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          message: "What is your managers name?",
+          name: "managerName",
+        },
+        {
+          type: "input",
+          message: "What is your managers iD name?",
+          name: "managerId",
+        },
+        {
+          type: "input",
+          message: "What is your managers email?",
+          name: "managerEmail",
+        },
+        {
+          type: "input",
+          message: "What is your managers office number?",
+          name: "officeNumber",
+        },
+      ])
+      .then((answers) => {
         const manager = new Manager(
           answers.managerName,
           answers.managerId,
-          answers.managerEmail, 
+          answers.managerEmail,
           answers.officeNumber
         );
         teamArr.push(manager);
         createTeam();
       });
-  }
-  
+  };
+
   function createTeam() {
-      inquirer
+    inquirer
       .prompt([
-          {
-        type: "list",
-        name: "userChoice",
-        message: "Would you like to add more team members?",
-        choices: ["Add an Engineer","Add an Intern", "Make a team"],
-    },
-])
-    .then((answers) => {
-      statement = answers.command;
-      
-      switch (statement) {
-        case "Add an Engineer":
-          getEngineer();
-          break;
+        {
+          type: "list",
+          name: "userChoice",
+          message: "Would you like to add more team members?",
+          choices: ["Add an Engineer", "Add an Intern", "Make a team"],
+        },
+      ])
+      .then((answers) => {
+        switch (answers.userChoice) {
+          case "Add an Engineer":
+            getEngineer();
+            break;
 
-        case "Make a team":
-          buildTeam();
-          break;
-          
-        case "Add an Intern":
+          case "Add an Intern":
             getIntern();
-          break;
-        }
-    });
-}
+            break;
 
-function getEngineer() {
-  inquirer
-  .prompt([
-      {
-        type: "input",
-        message: "What is the engineers name?",
-        name: "name",
-      },
-      {
-        type: "input",
-        message: "What is the engineers id?",
-        name: "id",
-      },
-      {
+          default:
+            buildTeam();
+        }
+      });
+  }
+
+  function getEngineer() {
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          message: "What is the engineers name?",
+          name: "engineerName",
+        },
+        {
+          type: "input",
+          message: "What is the engineers id?",
+          name: "engineerId",
+        },
+        {
           type: "input",
           message: "What is the engineers email?",
-          name: "email",
-      },
-      {
+          name: "engineerEmail",
+        },
+        {
           type: "input",
           message: "What is the engineers github username?",
-        name: "github",
-    },
-    ])
-    .then((answers) => {
-        var { name, id, email, github } = answers;
-      var engineer = new Engineer(
-        answer.name,
-        answers.id,
-        answers.email,
-        answers.github
-      );
-      teamMember.push(engineer);
-    });
-}
-function getIntern() {
-  inquirer
-    .prompt([
-        {
-        type: "input",
-        message: "What is the Interns name?",
-        name: "name",
-    },
-      {
-          type: "input",
-        message: "What is the Interns id?",
-        name: "id",
-      },
-      {
-          type: "input",
-        message: "What is the Interns email?",
-        name: "email",
-      },
-      {
-          type: "input",
-        message: "What is the school name?",
-        name: "school",
-      },
-    ])
-    .then((answers) => {
-        var { name, id, email, school } = answers;
-        var intern = Intern(name, id, email, school);
-    });
-}
+          name: "engineerGithub",
+        },
+      ])
+      .then((answers) => {
+        var engineer = new Engineer(
+          answers.engineerName,
+          answers.engineerId,
+          answers.engineerEmail,
+          answers.engineerGithub
+        );
+        teamArr.push(engineer);
 
-function buildTeam() {
-    fs.writeFileSync(outputPath, mainRender(teamMember), "utf-8");
-}
-promptManager();
+        createTeam();
+      });
+  }
+  function getIntern() {
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          message: "What is the Interns name?",
+          name: "internName",
+        },
+        {
+          type: "input",
+          message: "What is the Interns id?",
+          name: "interId",
+        },
+        {
+          type: "input",
+          message: "What is the Interns email?",
+          name: "internEmail",
+        },
+        {
+          type: "input",
+          message: "What is the school name?",
+          name: "internSchool",
+        },
+      ])
+      .then((answers) => {
+        var intern = new Intern(
+          answers.internName,
+          answers.internId,
+          answers.internEmail,
+          answers.internSchool
+        );
+        teamArr.push(intern);
+
+        createTeam();
+      });
+    }
+    
+    function buildTeam() {
+        fs.writeFileSync(outputPath, mainRender(teamArr), "utf-8");
+    }
+    promptManager();
 };
+console.log(teamArr);
 startApp();
