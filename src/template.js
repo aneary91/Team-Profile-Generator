@@ -1,41 +1,32 @@
-const genTeam = team => {
-const genManager = manager => {
-  return `
+const genTeam = (team) => {
+  const genManager = (manager) => {
+    return `
   <div class="card" style="width: 18rem;">
   <div class="card-body">
     <div class="card-header bg-primary text-white">
     <h2 class="card-title text-center"><i class="fas fa-glasses"></i>   ${manager.getName()}</h2>
-    <h5 class="card-title text-center">name</h5>
+    <h5 class="card-title text-center">${manager.getRole()}</h5>
     </div>
     <ul class="list-group list-group-flush">
-    <li class="list-group-item">An item</li>
-    <li class="list-group-item">A second item</li>
-    <li class="list-group-item">A third item</li>
+    <li class="list-group-item">${manager.getId()}</li>
+    <li class="list-group-item">${manager.getEmail()}</li>
+    <li class="list-group-item">${manager.getOfficeNumber()}</li>
   </ul>
   </div>
 </div>
-`
-}
+`;
+  };
+  
+  const teamHTML = [];
+  teamHTML.push(team
+    .filter(employee => employee.getRole() === 'Manager')
+    .map(manager => genManager(manager)))
+   
+   
+    return teamHTML.join('');
+};
 
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-module.exports = team => {
+module.exports = (team) => {
   return `
   <!DOCTYPE html>
   <html lang="en">
@@ -62,4 +53,4 @@ module.exports = team => {
           </body>
           </html>
           `;
-        };
+};
