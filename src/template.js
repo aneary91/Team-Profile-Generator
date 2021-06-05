@@ -1,4 +1,5 @@
 const genTeam = (team) => {
+  //generating manager html template
   const genManager = (manager) => {
     return `
   <div class="card" style="width: 18rem;">
@@ -16,14 +17,66 @@ const genTeam = (team) => {
 </div>
 `;
   };
-  
+  //
   const teamHTML = [];
-  teamHTML.push(team
-    .filter(employee => employee.getRole() === 'Manager')
-    .map(manager => genManager(manager)))
-   
-   
-    return teamHTML.join('');
+  teamHTML.push(
+    team
+      .filter((employee) => employee.getRole() === "Manager")
+      .map((manager) => genManager(manager))
+  );
+
+  const genIntern = (intern) => {
+    return `
+      <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <div class="card-header bg-primary text-white">
+        <h2 class="card-title text-center"><i class="fas fa-glasses"></i>   ${intern.getName()}</h2>
+        <h5 class="card-title text-center">${intern.getRole()}</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+        <li class="list-group-item">${intern.getId()}</li>
+        <li class="list-group-item">${intern.getEmail()}</li>
+        <li class="list-group-item">${intern.getSchool()}</li>
+      </ul>
+      </div>
+    </div>
+    `;
+  };
+
+  const teamHTML = [];
+  teamHTML.push(
+    team
+      .filter((employee) => employee.getRole() === "Intern")
+      .map((intern) => genIntern(intern))
+  );
+
+  const genEnginerr = (enginerr) => {
+    return `
+    <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <div class="card-header bg-primary text-white">
+      <h2 class="card-title text-center"><i class="fas fa-glasses"></i>   ${engineer.getName()}</h2>
+      <h5 class="card-title text-center">${engineer.getRole()}</h5>
+      </div>
+      <ul class="list-group list-group-flush">
+      <li class="list-group-item">${engineer.getId()}</li>
+      <li class="list-group-item">${engineer.getEmail()}</li>
+      <li class="list-group-item">${engineer.getGithub()}</li>
+    </ul>
+    </div>
+  </div>
+    `;
+  };
+
+    const teamHTML = [];
+    teamHTML.push(
+      team
+        .filter((employee) => employee.getRole() === 'Engineer')
+        .map((engineer) => genEngineer(engineer))
+    );
+    
+
+  return teamHTML.join("");
 };
 
 module.exports = (team) => {
