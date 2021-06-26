@@ -9,13 +9,14 @@ const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 
 // create variables for directory
-const OUTPUT_DIR = path.resolve(__dirname, "dist");
+const OUTPUT_DIR = path.resolve(__dirname, "../dist/index.html");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require('./src/template.js');
 
-var teamArr = [];
+let teamArr = [];
 
 const startApp = () => {
+
   const promptManager = () => {
     inquirer
       .prompt([
@@ -53,8 +54,7 @@ const startApp = () => {
   };
 
   function createTeam() {
-    inquirer
-      .prompt([
+    inquirer.prompt([
         {
           type: "list",
           name: "userChoice",
@@ -65,17 +65,21 @@ const startApp = () => {
       .then((answers) => {
         switch (answers.userChoice) {
           case "Add an Engineer":
-            getEngineer();
+            addEngineer();
             break;
 
           case "Add an Intern":
-            getIntern();
+            addIntern();
+            break;
+          case 'Im finished buildig my team':
+            buildTeam(employee);
             break;
 
           default:
-            buildTeam();
+            break;
         }
-      });
+      })
+      return employee
   }
 
   function getEngineer() {

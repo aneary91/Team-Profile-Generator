@@ -2,7 +2,7 @@ const genTeam = (team) => {
   //generating manager html template
   const genManager = (manager) => {
     return `
-  <div class="card" style="width: 18rem;">
+  <div class="card col-md-3"  style="width: 18rem;">
   <div class="card-body">
     <div class="card-header bg-primary text-white">
     <h2 class="card-title text-center"><i class="fas fa-glasses"></i>   ${manager.getName()}</h2>
@@ -27,7 +27,7 @@ const genTeam = (team) => {
 
   const genIntern = (intern) => {
     return `
-      <div class="card" style="width: 18rem;">
+      <div class="card col-md-3" style="width: 18rem;">
       <div class="card-body">
         <div class="card-header bg-primary text-white">
         <h2 class="card-title text-center"><i class="fas fa-glasses"></i>   ${intern.getName()}</h2>
@@ -43,16 +43,16 @@ const genTeam = (team) => {
     `;
   };
 
-  const teamHTML = [];
+
   teamHTML.push(
     team
       .filter((employee) => employee.getRole() === "Intern")
       .map((intern) => genIntern(intern))
   );
 
-  const genEnginerr = (enginerr) => {
+  const genEngineer = (engineer) => {
     return `
-    <div class="card" style="width: 18rem;">
+    <div class="card col-md-3" style="width: 18rem;">
     <div class="card-body">
       <div class="card-header bg-primary text-white">
       <h2 class="card-title text-center"><i class="fas fa-glasses"></i>   ${engineer.getName()}</h2>
@@ -68,7 +68,7 @@ const genTeam = (team) => {
     `;
   };
 
-    const teamHTML = [];
+
     teamHTML.push(
       team
         .filter((employee) => employee.getRole() === 'Engineer')
